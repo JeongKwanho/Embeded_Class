@@ -1,21 +1,22 @@
-#include “mbed.h”
+#include "mbed.h"
 
-Ticker tic;
 DigitalOut led1(LED1);
 DigitalOut led2(D7);
+InterruptIn btn(USER_BUTTON);
 
-void cb()
+void flip()
 {
-	led2 = !led2;
+    led1 = !led1;
 }
 
 int main()
 {
-	tic.attach(&cb, 0.1);
+    btn.fall(&flip);
 
-	while(1)
-	{
-		led1 = !led1;
-		wait(1);
-	}
+    while(1)
+    {
+        led2 = !led2;
+        
+        wait(0.5);
+    }
 }
